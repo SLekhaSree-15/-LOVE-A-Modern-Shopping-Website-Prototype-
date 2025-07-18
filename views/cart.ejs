@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+  <style>
+    /* Reset and base */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff0f6;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #e91e63;
+      text-align: center;
+      margin-bottom: 20px;
+      letter-spacing: 1.5px;
+    }
+
+    a {
+      display: inline-block;
+      margin-bottom: 25px;
+      color: #e91e63;
+      text-decoration: none;
+      font-weight: 600;
+      border: 2px solid #e91e63;
+      padding: 6px 15px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #e91e63;
+      color: white;
+    }
+
+    table {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 40px;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 5px 15px rgba(233, 30, 99, 0.15);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid #f2d9e6;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #e91e63;
+    }
+
+    img {
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(233, 30, 99, 0.25);
+    }
+
+    button {
+      background-color: #e91e63;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #c2185b;
+    }
+
+    p {
+      max-width: 600px;
+      margin: 30px auto;
+      font-size: 1.2rem;
+      color: #777;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    form {
+      text-align: center;
+    }
+
+    form button[type="submit"] {
+      background-color: #e91e63;
+      width: 140px;
+      font-size: 1.1rem;
+      padding: 12px 0;
+      border-radius: 30px;
+      margin-top: 10px;
+      box-shadow: 0 6px 15px rgba(233, 30, 99, 0.35);
+    }
+
+    form button[type="submit"]:hover {
+      background-color: #c2185b;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Your Cart - <%= user %></h2>
+  <a href="/">Home</a>
+
+  <% if(cart.length === 0) { %>
+    <p>Your cart is empty.</p>
+  <% } else { %>
+    <table>
+      <% cart.forEach(item => { %>
+        <tr>
+          <td><img src="<%= item.image %>" width="80" alt="<%= item.name %>"/></td>
+          <td><%= item.name %></td>
+          <td>$<%= item.price %></td>
+          <td><%= item.quantity %></td>
+          <td>
+            <form method="POST" action="/cart/remove">
+              <input type="hidden" name="productId" value="<%= item.id %>"/>
+              <button type="submit">Remove</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+      <tr>
+        <td colspan="3"><strong>Total</strong></td>
+        <td colspan="2">$<%= total %></td>
+      </tr>
+    </table>
+    <form method="POST" action="/checkout">
+      <button type="submit">Checkout</button>
+    </form>
+  <% } %>
+
+</body>
+</html>

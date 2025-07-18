@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LOVE - Login</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px 50px;
+      border-radius: 25px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      width: 350px;
+      text-align: center;
+      position: relative;
+    }
+
+    .login-container h2 {
+      margin-bottom: 25px;
+      color: #ff3d6f;
+      font-weight: 700;
+      font-size: 2.4rem;
+      letter-spacing: 1.2px;
+    }
+
+    .login-container label {
+      display: block;
+      text-align: left;
+      font-weight: 600;
+      margin-bottom: 6px;
+      margin-top: 15px;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border-radius: 15px;
+      border: 1.8px solid #ff9a9e;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .login-container input[type="text"]:focus,
+    .login-container input[type="password"]:focus {
+      border-color: #ff3d6f;
+      box-shadow: 0 0 8px rgba(255, 61, 111, 0.5);
+    }
+
+    .login-container button {
+      margin-top: 30px;
+      width: 100%;
+      background: #ff3d6f;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      cursor: pointer;
+      letter-spacing: 1.1px;
+      transition: background 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 61, 111, 0.6);
+    }
+
+    .login-container button:hover {
+      background: #ff587a;
+      box-shadow: 0 8px 20px rgba(255, 61, 111, 0.8);
+    }
+
+    .login-footer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .login-footer a {
+      color: #ff3d6f;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Welcome Back ❤️</h2>
+    <form action="/login" method="POST" autocomplete="off">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required placeholder="Enter your username" />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required placeholder="Enter your password" />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="login-footer">
+      Don't have an account? <a href="/register">Register here</a>
+    </div>
+  </div>
+</body>
+</html>

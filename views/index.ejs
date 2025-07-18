@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOVE - Home</title>
+  <link rel="stylesheet" href="/css/index.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .main-title {
+      text-align: center;
+      font-size: 5rem;
+      margin-top: 40px;
+      font-weight: 800;
+      text-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    .heart {
+      animation: pulse 1.5s infinite;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .search-bar {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .search-bar input {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      width: 300px;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 60px auto;
+      gap: 40px;
+    }
+
+    .category {
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 2.2rem;
+      font-weight: bold;
+      border: 2px solid #fff;
+      transition: transform 0.3s, background 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .category:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .logout-popup {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #fff;
+      color: #333;
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+    }
+  </style>
+  <script>
+    function showLogoutPopup() {
+      const popup = document.getElementById("logout-popup");
+      popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 3000);
+    }
+  </script>
+</head>
+<body>
+  <div id="logout-popup" class="logout-popup">You have been logged out successfully.</div>
+
+  <% if (user && user !== 'Guest') { %>
+    <div style="position: fixed; top: 10px; right: 10px; color: white; font-weight: bold;">
+      Welcome, <%= user %> | <a href="/logout" onclick="showLogoutPopup()" style="color: #fff; text-decoration: underline;">Logout</a> | Cart (<%= cartCount %>)
+    </div>
+  <% } else { %>
+    <div style="position: fixed; top: 10px; right: 10px; color: white; font-weight: bold;">
+      <a href="/login" style="color: #fff; text-decoration: underline;">Login</a> | Cart (<%= cartCount %>)
+    </div>
+  <% } %>
+
+  <h1 class="main-title">LOVE <span class="heart">❤️</span></h1>
+  <div class="search-bar">
+    <form action="/search" method="GET">
+      <input type="text" name="query" placeholder="Search products... 💕" />
+    </form>
+  </div>
+  <div class="categories">
+    <a href="/products/clothing" class="category">👗 CLOTHING</a>
+    <a href="/products/accessories" class="category">👜 ACCESSORIES</a>
+    <a href="/products/grocery" class="category">🛒 GROCERY</a>
+    <a href="/products/sneakers" class="category">👟 SNEAKERS</a>
+    <a href="/products/electronics" class="category">📱 ELECTRONICS</a>
+  </div>
+</body>
+</html>

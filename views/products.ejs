@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= category.charAt(0).toUpperCase() + category.slice(1) %> Products - LOVE</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    body {
+      background: #fdf6fb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: #6a0dad;
+      color: white;
+      box-shadow: 0 3px 7px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    header a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: bold;
+    }
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .search-bar {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .search-bar input {
+      padding: 10px;
+      width: 50%;
+      font-size: 16px;
+      border: 2px solid #6a0dad;
+      border-radius: 5px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .search-bar input:focus {
+      border-color: #9c27b0;
+    }
+    .products-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .product {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 220px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .product img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .product h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+      color: #4a148c;
+    }
+    .product p {
+      margin: 5px 0;
+      font-weight: 600;
+      color: #333;
+    }
+    .add-cart-btn, .buy-now-btn {
+      display: block;
+      background-color: #9c27b0;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+    .buy-now-btn {
+      background-color: #ff4081;
+    }
+    .add-cart-btn:hover {
+      background-color: #6a0dad;
+    }
+    .buy-now-btn:hover {
+      background-color: #e91e63;
+    }
+    .offer-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ffeb3b;
+      color: #000;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    function showLogoutPopup() {
+      const popup = document.getElementById('logout-popup');
+      popup.style.display = 'block';
+      setTimeout(() => popup.style.display = 'none', 3000);
+    }
+
+    function handleBuyNow(productName) {
+      alert(`"${productName}" will be available very soon! 😍🛍️`);
+    }
+  </script>
+</head>
+<body>
+  <div id="logout-popup">You have been logged out successfully.</div>
+
+  <header>
+    <h1><%= category.charAt(0).toUpperCase() + category.slice(1) %> Products</h1>
+    <nav>
+      <a href="/" class="back-link">← Back to Categories</a>
+      <% if (user && user !== 'Guest') { %>
+        <span style="margin-left: 15px; font-weight: bold;">Welcome, <%= user %></span> |
+        <a href="/cart" class="cart-link">Cart (<span id="cart-count"><%= cartCount || 0 %></span>)</a> |
+        <a href="/logout" onclick="showLogoutPopup(); return confirm('Are you sure you want to log out?');">Logout</a>
+      <% } else { %>
+        <a href="/login" class="cart-link">Login</a> |
+        <a href="/cart" class="cart-link">Cart (<span id="cart-count"><%= cartCount || 0 %></span>)</a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search products..." />
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <% products.forEach(product => { %>
+        <div class="product">
+          <% if(product.price < 100) { %>
+            <div class="offer-tag">Special Offer!</div>
+          <% } %>
+          <img src="<%= product.image %>" alt="<%= product.name %>" onclick="handleBuyNow('<%= product.name %>')"/>
+          <h3><%= product.name %></h3>
+          <p>$<%= product.price %></p>
+          <form method="POST" action="/cart/add">
+            <input type="hidden" name="productId" value="<%= product.id %>">
+            <button type="submit" class="add-cart-btn">Add to Cart</button>
+          </form>
+          <button class="buy-now-btn" onclick="handleBuyNow('<%= product.name %>')">Buy Now</button>
+        </div>
+      <% }) %>
+    </div>
+  </main>
+</body>
+</html>

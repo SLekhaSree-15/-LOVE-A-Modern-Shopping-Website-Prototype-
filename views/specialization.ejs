@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= category.charAt(0).toUpperCase() + category.slice(1) %> - LOVE</title>
+  <link rel="stylesheet" href="/css/special.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f5ff;
+      color: #4a148c;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #6a0dad;
+      padding: 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 3px 7px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 24px;
+    }
+    header nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    header nav a:hover {
+      text-decoration: underline;
+      color: #9c27b0;
+    }
+    main {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(106, 13, 173, 0.2);
+      text-align: center;
+    }
+    section p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .view-products-btn {
+      background-color: #9c27b0;
+      color: white;
+      padding: 12px 28px;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      font-size: 18px;
+    }
+    .view-products-btn:hover {
+      background-color: #6a0dad;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LOVE - <%= category.charAt(0).toUpperCase() + category.slice(1) %></h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/logout" onclick="return confirm('Are you sure you want to log out?')">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <p>Showing products for <strong><%= category.charAt(0).toUpperCase() + category.slice(1) %></strong></p>
+      <a href="/products/<%= category %>" class="view-products-btn">View Products</a>
+    </section>
+  </main>
+</body>
+</html>
